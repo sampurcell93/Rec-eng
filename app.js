@@ -1,6 +1,10 @@
 var express = require("express"),
         app = express(),
-        port
+        port,
+        mongo = require('mongodb'),
+        mongoUri = 'receng-sample',
+        db = require("mongojs").connect(mongoUri,["posts", "users"]);
+
 
 var cc = function() { for (arg in arguments) console.log(arguments[arg]) }
 
