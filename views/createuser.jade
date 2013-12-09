@@ -1,0 +1,21 @@
+!!!5
+html
+	head
+		title Create A User for Testing
+		link(rel='stylesheet', type='text/css', media='screen', href='../stylesheets/screen.css')
+	body
+		form.create-user-wrapper(action='/users', method='POST')
+			fieldset
+				| Create A User for Testing
+			label
+				| Username:
+				input(type='text', name='name', placeholder='Username', value='' )
+			label
+				| Age:
+				input(type='number', name='age', placeholder='Age', value='')
+			label
+				| Description
+				textarea(name='description', placeholder='Description', value='')
+			label
+				input(type='text', name='activities', placeholder='Enter an activity')
+			input(type='submit', value='Submit').button
