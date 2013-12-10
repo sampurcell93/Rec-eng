@@ -2,7 +2,7 @@ var express = require("express"),
 	      _ = require("underscore"),
         app = express(),
       mongo = 'receng-sample',
-      objid = require("ObjectId"),
+      // objid = require("ObjectId"),
       	 // The users table will also contain all of the posts, associated with each user. 
       	 // Ideally we'd be using a relational model but we'll just hack it in for this project.
    Facebook = require('facebook-node-sdk'),
