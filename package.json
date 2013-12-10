@@ -1,0 +1,10 @@
+{
+	"dependencies": {
+		"jade":"*",
+		"objectid": "*",
+		"express": "*",
+		"underscorejs": "*",
+		"facebook-node-sdk":"*",
+		"mongojs":"*"
+	}
+}

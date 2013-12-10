@@ -5,8 +5,10 @@ var express = require("express"),
       objid = require("ObjectId"),
       	 // The users table will also contain all of the posts, associated with each user. 
       	 // Ideally we'd be using a relational model but we'll just hack it in for this project.
-         db = require("mongojs").connect(mongo,["users"]),
+   Facebook = require('facebook-node-sdk'),
+         db = require("mongojs").connect(mongo,["users", "posts"]),
        port, current_user = 0
+
 
 
 app.configure(function (){
@@ -17,6 +19,8 @@ app.configure(function (){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.static(__dirname + '/public'));
+  app.use(express.session({ secret: 'foo bar' }));
+  app.use(Facebook.middleware({ appId: '474944245955765', secret: '7b41fc65ccfea7b128dd0bc1fca2c8cc' }));
 });      
 
 var cc = function() { for (arg in arguments) console.log(arguments[arg]) }
@@ -52,10 +56,14 @@ app.get("/recommendations", parser.getUserData, parser.getFriendData, parser.get
 	res.end("hello there")
 })
 
-app.get("/", function(req, res) {
-	res.render("createuser", {user: {
-		activities: ["swimming", "biking"]
-	}});
+app.get("/", Facebook.loginRequired(), function(req, res) {
+	req.facebook.api('/me', function(err, user) {
+    	res.writeHead(200, {'Content-Type': 'text/plain'});
+    	res.end('Hello, ' + user.name + '!');
+  	});
+	// res.render("createuser", {user: {
+	// 	activities: ["swimming", "biking"]
+	// }});
 })
 
 /* User REST API */
