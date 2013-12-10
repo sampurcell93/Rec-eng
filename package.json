@@ -3,7 +3,7 @@
 		"jade":"*",
 		"objectid": "*",
 		"express": "*",
-		"underscorejs": "*",
+		"underscore": "*",
 		"facebook-node-sdk":"*",
 		"mongojs":"*"
 	}
