@@ -1,0 +1,24 @@
+!!!5
+html
+	head
+		title Your Recommendations
+		link(rel='stylesheet', type='text/css', media='screen', href='../stylesheets/screen.css')
+		script(type='text/javascript')
+			window.userid = !{userid}
+			window.user = !{user}
+		script(type='text/javascript', src='http://code.jquery.com/jquery-1.10.2.min.js')
+		script(type='text/javascript', src='http://underscorejs.org/underscore-min.js')
+		script(type='text/javascript', src='http://backbonejs.org/backbone-min.js')
+		script(type='text/javascript', src='main.js')
+	body
+		ul.post-list
+
+
+	script(type='text/template')#post-item
+		<% Date.prototype.clean = function() { return this.getMonth() + 1 + "/" + this.getDate() + "/" + this.getFullYear() }%>
+		<%= activity1 %> and <%= activity2 %> in <%= location %>
+		| From <%= start_date.clean() %> to <%= end_date.clean() %> by user <%= user_id %>
+		<button class='js-like-post'>Like</button>
+		<button class='js-unlike-post'>Dislike</button>
+		div.description
+			<%= description %>

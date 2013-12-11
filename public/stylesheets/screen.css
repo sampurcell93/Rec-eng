@@ -75,17 +75,38 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 /* line 11, ../sass/screen.scss */
-.create-user-wrapper {
-  width: 400px;
-  height: 400px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -200px;
-  margin-top: -200px;
+body {
+  background: url("../images/blur.png") fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: sans-serif;
+}
+
+/* line 17, ../sass/screen.scss */
+.post-list {
+  width: 700px;
+  margin: 30px auto;
+  border: 1px solid #eee;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.7);
+}
+/* line 26, ../sass/screen.scss */
+.post-list li {
+  display: block;
+  line-height: 2em;
+}
+
+/* line 32, ../sass/screen.scss */
+.description p {
+  padding: 10px;
+  line-height: 1.7;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
 }

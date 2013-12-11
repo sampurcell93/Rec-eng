@@ -8,13 +8,30 @@
 
 * { @include box-sizing(border-box); }
 
-.create-user-wrapper {
-	width: 400px;
-	height: 400px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-left: -200px;
-	margin-top: -200px;
+body {
+	background: url("../images/blur.png") fixed;
+	@include background-size(cover);
+	font-family: sans-serif;
+}
+
+.post-list {
+	width: 700px;
+	margin: 30px auto;
+	border: 1px solid #eee;
 	@include border-radius(3px);
+	padding: 10px;
+	background: rgba(255,255,255,.7);
+
+
+	li {
+		display: block;
+		line-height: 2em;
+	}
+}
+
+.description p {
+	padding: 10px;
+	line-height: 1.7;
+	border: 1px solid #ddd;
+	background: #f9f9f9;
 }
