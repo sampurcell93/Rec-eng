@@ -148,7 +148,10 @@
       if (key === 13) {
         val = $(this).val();
         return filter = _.each(allposts.models, function(post) {
-          if (post.toJSON().description.indexOf(val) === -1) {
+          var text;
+          text = post.toJSON();
+          text = (text.description + text.location + text.activity1 + text.activity2).toLowerCase();
+          if (text.indexOf(val) === -1) {
             return post.trigger("hide");
           } else {
             return post.trigger("show");

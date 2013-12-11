@@ -100,7 +100,9 @@ $ ->
 		if key == 13
 			val = $(@).val()
 			filter = _.each allposts.models, (post) ->
-				if post.toJSON().description.indexOf(val) == -1
+				text = post.toJSON()
+				text = (text.description + text.location + text.activity1 + text.activity2).toLowerCase()
+				if text.indexOf(val) == -1
 					post.trigger "hide"
 				else post.trigger "show"
 
