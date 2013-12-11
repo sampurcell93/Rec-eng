@@ -10,6 +10,7 @@ A feed containing trip posts sorted by how likely the recommender thinks you wil
 Users may like or dislike a post, which sends feedback to the recommender system
 Supports infinite scrolling
 Contains word-cloud
+Filter results not yet functional. Will be implemented if time.
 
 *Preferences:
 A user may add activities that they enjoy and give them a score for how much they enjoy them
