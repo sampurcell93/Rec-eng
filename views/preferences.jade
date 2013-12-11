@@ -1,0 +1,67 @@
+!!!5
+html
+	head
+		title Your Recommendations
+		link(rel='stylesheet', type='text/css', media='screen', href='../stylesheets/screen.css')
+		link(rel='stylesheet', type='text/css', media='screen', href='//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css')
+		script(type='text/javascript', src='http://code.jquery.com/jquery-1.10.2.min.js')
+		script(type='text/javascript', src='http://underscorejs.org/underscore-min.js')
+		script(type='text/javascript', src='http://backbonejs.org/backbone-min.js')
+		script(type='text/javascript', src='//code.jquery.com/ui/1.10.3/jquery-ui.js')
+		script(type='text/javascript')
+			$(document).ready(function() {
+				$(".activity-slider").slider({
+					min: -10,
+					max: 10
+				})
+				$(".location-slider").slider({
+					min: -10,
+					max: 10,
+					slide: function(event, ui) {
+						console.log(ui.value)
+					}
+				})
+
+				//- FUCK OFF JQUERY GO DIE GO DIE GO DIE
+				document.querySelector(".submit-preferences").addEventListener("click", function() {
+					locval = $(".location-slider").slider("option", "value")
+					acval = $(".activity-slider").slider("option", "value")
+					$acname = $(".activity-name")
+					$locname = $(".location-name")
+					console.log(locval, acval)
+					$.ajax({
+						url: '/users/' + !{userid} + "/false?locby=" + locval + "&acby=" + acval,
+						data: {
+							activities: [$acname.val()],
+							locations: [$locname.val()]
+						},
+						type: 'PUT',
+						success: function (result) {
+							alert("well done")
+							$acname.val("")
+							$locname.val("")
+						}
+					})
+				})
+			})
+
+
+
+	body
+		nav 
+			ul
+				li
+					a(href='/news?id=#{userid}') News Feed
+				li
+					a(href='/preferences') Preferences
+
+		div.wrapper
+			label
+				input(type='text', placeholder='Enter an activity').activity-name
+				| And how much you love it on a scale of -10-10
+				div.activity-slider.slider
+			label
+				input(type='text', placeholder='Enter a location').location-name
+				| And how much you love it on a scale of -10-10
+				div.location-slider.slider
+			button.button.submit-preferences Submit

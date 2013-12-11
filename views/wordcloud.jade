@@ -17,18 +17,4 @@ html
 					a(href='/news?id=#{userid}') News Feed
 				li
 					a(href='/preferences?id=#{userid}') Preferences
-				li.show-word-cloud Show word cloud
-				li
-					input(type='text', placeholder='filter results').js-filter-results
 		ul.word-cloud
-		ul.post-list
-
-
-	script(type='text/template')#post-item
-		<% Date.prototype.clean = function() { return this.getMonth() + 1 + "/" + this.getDate() + "/" + this.getFullYear() }%>
-		<%= activity1 %> and <%= activity2 %> in <%= location %>
-		| From <%= start_date.clean() %> to <%= end_date.clean() %> by user <%= user_id %>
-		<button class='js-like-post'>Like</button>
-		<button class='js-unlike-post'>Dislike</button>
-		p.description
-			<%= description %>

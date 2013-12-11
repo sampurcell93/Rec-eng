@@ -12,9 +12,10 @@ body {
 	background: url("../images/blur.png") fixed;
 	@include background-size(cover);
 	font-family: sans-serif;
+	padding: 50px 0;
 }
 
-.post-list {
+.post-list, .wrapper {
 	width: 700px;
 	margin: 30px auto;
 	border: 1px solid #eee;
@@ -29,9 +30,61 @@ body {
 	}
 }
 
-.description p {
+.description {
 	padding: 10px;
 	line-height: 1.7;
 	border: 1px solid #ddd;
 	background: #f9f9f9;
+}
+
+nav {
+	position: fixed;
+	background: rgba(255,255,255,.87);
+	top: 0;
+	width: 100%;
+
+	ul {
+		width: 700px;
+		margin: 0 auto;
+
+
+		li {
+			display: inline-block;
+			line-height: 1.8;
+			padding: 0 10px;
+			text-align: center;
+			cursor: pointer;
+
+			input { width: 100%;}
+
+			&:hover {
+				color: #111;
+				background: white;
+			}
+
+			a {
+				color: #333;
+			}
+		}
+
+	}
+}
+
+.word-cloud {
+	display: none;
+	li {
+		display: inline-block;;
+		padding: 0 4px
+	}
+}
+input {
+	display: block;
+	padding:  10px;
+	border: 1px solid #ccc;
+	@include border-radius(3px);
+	@include box-shadow(inset 0px 2px 4px #ccc);
+	outline: none;
+	width: 55%;
+	font-size: 1.2em;
+	margin: 10px;
 }

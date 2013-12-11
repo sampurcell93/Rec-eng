@@ -82,10 +82,11 @@ body {
   -o-background-size: cover;
   background-size: cover;
   font-family: sans-serif;
+  padding: 50px 0;
 }
 
-/* line 17, ../sass/screen.scss */
-.post-list {
+/* line 18, ../sass/screen.scss */
+.post-list, .wrapper {
   width: 700px;
   margin: 30px auto;
   border: 1px solid #eee;
@@ -97,16 +98,79 @@ body {
   padding: 10px;
   background: rgba(255, 255, 255, 0.7);
 }
-/* line 26, ../sass/screen.scss */
-.post-list li {
+/* line 27, ../sass/screen.scss */
+.post-list li, .wrapper li {
   display: block;
   line-height: 2em;
 }
 
-/* line 32, ../sass/screen.scss */
-.description p {
+/* line 33, ../sass/screen.scss */
+.description {
   padding: 10px;
   line-height: 1.7;
   border: 1px solid #ddd;
   background: #f9f9f9;
+}
+
+/* line 40, ../sass/screen.scss */
+nav {
+  position: fixed;
+  background: rgba(255, 255, 255, 0.87);
+  top: 0;
+  width: 100%;
+}
+/* line 46, ../sass/screen.scss */
+nav ul {
+  width: 700px;
+  margin: 0 auto;
+}
+/* line 51, ../sass/screen.scss */
+nav ul li {
+  display: inline-block;
+  line-height: 1.8;
+  padding: 0 10px;
+  text-align: center;
+  cursor: pointer;
+}
+/* line 58, ../sass/screen.scss */
+nav ul li input {
+  width: 100%;
+}
+/* line 60, ../sass/screen.scss */
+nav ul li:hover {
+  color: #111;
+  background: white;
+}
+/* line 65, ../sass/screen.scss */
+nav ul li a {
+  color: #333;
+}
+
+/* line 73, ../sass/screen.scss */
+.word-cloud {
+  display: none;
+}
+/* line 75, ../sass/screen.scss */
+.word-cloud li {
+  display: inline-block;
+  padding: 0 4px;
+}
+
+/* line 80, ../sass/screen.scss */
+input {
+  display: block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0px 2px 4px #cccccc;
+  -moz-box-shadow: inset 0px 2px 4px #cccccc;
+  box-shadow: inset 0px 2px 4px #cccccc;
+  outline: none;
+  width: 55%;
+  font-size: 1.2em;
+  margin: 10px;
 }

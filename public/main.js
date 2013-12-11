@@ -11,12 +11,44 @@
   };
 
   $(function() {
-    var Post, PostList, PostListItem, Posts, list;
+    var Post, PostList, PostListItem, Posts, WordCloud, list;
+    window.wordcloud = {};
+    window.totalcount = 0;
+    WordCloud = Backbone.View.extend({
+      el: '.word-cloud',
+      initialize: function() {
+        return this.render();
+      },
+      render: function() {
+        var self;
+        self = this;
+        _.each(this.model, function(count, word) {
+          var ems, li;
+          ems = (count / totalcount) * 300;
+          if (ems > 5) {
+            ems = 5;
+          }
+          li = $("<li />").text(word).css({
+            "font-size": ems + "em"
+          });
+          return self.$el.append(li);
+        });
+        return this;
+      }
+    });
     Post = Backbone.Model.extend({
       parse: function(model) {
         model.start_date = new Date(model.start_date);
         model.end_date = new Date(model.end_date);
-        model.description = JSON.parse(model.description).text_out;
+        model.description = $(JSON.parse(model.description).text_out).text().toLowerCase();
+        _.each(model.description.split(" "), function(word) {
+          if (wordcloud.hasOwnProperty(word)) {
+            wordcloud[word]++;
+          } else {
+            wordcloud[word] = 1;
+          }
+          return totalcount++;
+        });
         return model;
       }
     });
@@ -30,6 +62,16 @@
     PostListItem = Backbone.View.extend({
       template: $("#post-item").html(),
       tagName: 'li',
+      initialize: function() {
+        return this.listenTo(this.model, {
+          hide: function() {
+            return this.$el.hide();
+          },
+          show: function() {
+            return this.$el.show();
+          }
+        });
+      },
       render: function() {
         this.$el.html(_.template(this.template, this.model.toJSON()));
         return this;
@@ -45,7 +87,7 @@
           url: '/users/' + window.userid + "/" + like,
           data: {
             activities: [a1, a2],
-            location: loc
+            locations: [loc]
           },
           type: 'PUT',
           success: function(result) {
@@ -84,13 +126,35 @@
     });
     window.allposts = new Posts;
     list = null;
-    return allposts.fetch({
+    allposts.fetch({
       success: function(response) {
-        return list = new PostList({
+        var WordCloudView;
+        list = new PostList({
           collection: response
+        });
+        return WordCloudView = new WordCloud({
+          model: wordcloud,
+          count: totalcount
         });
       },
       parse: true
+    });
+    $(".show-word-cloud").on("click", function() {
+      return $(".word-cloud").toggle("fast");
+    });
+    return $(".js-filter-results").on("keyup", function(e) {
+      var filter, key, val;
+      key = e.keyCode || e.which;
+      if (key === 13) {
+        val = $(this).val();
+        return filter = _.each(allposts.models, function(post) {
+          if (post.toJSON().description.indexOf(val) === -1) {
+            return post.trigger("hide");
+          } else {
+            return post.trigger("show");
+          }
+        });
+      }
     });
   });
 

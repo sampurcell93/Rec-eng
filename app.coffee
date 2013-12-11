@@ -85,6 +85,12 @@ app.get "/news", parser.getUserData, (req, res) ->
       user: JSON.stringify req.user
     })
 
+app.get("/preferences",parser.getUserData, (req,res) ->
+  res.render "preferences", {
+      userid: req.query.id
+      user: JSON.stringify req.user
+    }
+)
 
 app.get "/", (req, res) ->
   res.render "createuser",
@@ -102,24 +108,27 @@ app.get "/users/:name", (req, res) ->
   , (err, results) ->
     res.json results
 
-
 app.get "/users", (req, res) ->
   db.users.find {}, (err, results) ->
     res.json results
 
 app.put "/users/:id/:inc", (req, res) ->
-  a1 = req.body.activities[0].toLowerCase()
-  a2 = req.body.activities[1].toLowerCase()
-  loc = req.body.location
   id = parseInt req.params.id
+  acby = parseInt req.query.acby
+  locby = parseInt req.query.locby
+  cc locby
   inc = if req.params.inc == "true" then 1 else -1
 
   db.users.findOne({user_id: id}, (err, res) -> 
     activities = res.activities
-
-    if activities[a1] then activities[a1] += inc else activities[a1] = inc
-    if activities[a2] then activities[a2] += inc else activities[a2] = inc
-    if res.locations[loc] then res.locations[loc] += inc else res.locations[loc] = inc
+    _.each req.body.activities, (activity) ->
+      activity = activity.toLowerCase()
+      myinc = if acby != false then acby else inc
+      if activities[activity] then activities[activity] += myinc else activities[activity] = myinc
+    _.each req.body.locations, (loc) ->
+      loc = loc
+      myinc = if locby != false then locby else inc
+      if res.locations[loc] then res.locations[loc] += myinc else res.locations[loc] = myinc
 
     db.users.update({user_id: id}, {$set: {activities: activities, locations: res.locations}}, (err, updated) ->
       console.log updated
@@ -132,25 +141,3 @@ app.put "/users/:id/:inc", (req, res) ->
 # Posts REST API 
 app.get "/posts", parser.getPostData, (req, res) ->
   res.json req.posts
-
-pop = (id) ->
-  options = {
-    host: 'www.randomtext.me'
-    port: 80
-    path: '/api/gibberish/p-1/60-100'
-  }
-
-  http.get(options, (res) ->
-    res.on('data', (chunk) ->
-        # console.log('BODY: ' + chunk);
-        # cc id
-        chunk = chunk.toString()
-        db.posts.update({_id: objid(id)}, {$set: {description: chunk}}, {upsert: true})
-    )).on('error', (e) ->
-      console.log("Got error: " + e.message);
-    )
-
-app.get "/dev", (req, res) ->
-  db.posts.find().forEach (err, obj) ->
-    if obj? then pop obj._id
-
