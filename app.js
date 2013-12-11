@@ -63,7 +63,8 @@
             req.user = result[0];
             return next();
           } else {
-            return cc("FUCKING FUCK THIS PROJECT");
+            cc("FUCKING FUCK THIS PROJECT");
+            return cc(err);
           }
         });
       },
@@ -134,7 +135,7 @@
 
   app.post("/users", function(req, res) {
     cc(req.body);
-    return res.redirect("/");
+    return res.redirect("/news");
   });
 
   app.get("/users/:name", function(req, res) {

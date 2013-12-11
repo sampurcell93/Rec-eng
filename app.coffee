@@ -43,6 +43,7 @@ parser = new (->
         next()
       else
         cc "FUCKING FUCK THIS PROJECT"
+        cc err
 
 
   getPostData: (req, res, next) ->
@@ -100,7 +101,7 @@ app.get "/", (req, res) ->
 # User REST API 
 app.post "/users", (req, res) ->
   cc req.body
-  res.redirect "/"
+  res.redirect "/news"
 
 app.get "/users/:name", (req, res) ->
   db.users.find
